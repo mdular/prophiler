@@ -5,12 +5,12 @@
 $c-lines: #eee;
 $c-headline: #777;
 
-$c-event-0: rgba(218, 88, 84, .75);
-$c-event-1: rgba(240, 175, 83, .75);
-$c-event-2: rgba(97, 186, 97, .75);
-$c-event-3: rgba(57, 126, 185, .75);
-$c-event-4: rgba(96, 194, 223, .75);
-$c-event-5: rgba(216, 216, 216, 0.75);
+$c-event-red: rgba(218, 88, 84, .75);
+$c-event-yellow: rgba(240, 175, 83, .75);
+$c-event-green: rgba(97, 186, 97, .75);
+$c-event-blue: rgba(57, 126, 185, .75);
+$c-event-sky: rgba(96, 194, 223, .75);
+$c-event-grey: rgba(216, 216, 216, 0.75);
 
 body {
   margin-top: 33px !important;
@@ -56,52 +56,71 @@ body {
   }
 
   .color-0 {
-    background-color: $c-event-0;
+    background-color: $c-event-red;
     color: #fff;
     * {
       color: inherit;
+    }
+    .badge {
+      color: $c-event-red;
     }
   }
   .color-1 {
-    background-color: $c-event-1;
+    background-color: $c-event-yellow;
     color: #fff;
     * {
       color: inherit;
+    }
+    .badge {
+      color: $c-event-yellow;
     }
   }
   .color-2 {
-    background-color: $c-event-2;
+    background-color: $c-event-green;
     color: #fff;
     * {
       color: inherit;
+    }
+    .badge {
+      color: $c-event-green;
     }
   }
   .color-3 {
-    background-color: $c-event-3;
+    background-color: $c-event-blue;
     color: #fff;
     * {
       color: inherit;
+    }
+    .badge {
+      color: $c-event-blue;
     }
   }
   .color-4 {
-    background-color: $c-event-4;
+    background-color: $c-event-sky;
     color: #fff;
     * {
       color: inherit;
     }
+    .badge {
+      color: $c-event-sky;
+    }
   }
   .color-5 {
-    background-color: $c-event-5;
-    color: darken($c-event-5, 65%) !important;
+    background-color: $c-event-grey;
+    color: darken($c-event-grey, 65%) !important;
     * {
       color: inherit;
+    }
+    .badge {
+      color: darken(#fff, 10%) !important;
+      background-color: darken($c-event-grey, 65%) !important;
     }
   }
 
   .label {
     display: inline-block;
     font-size: 1em;
-    padding: .15em .6em .15em;
+    padding: .3em .6em .3em;
     font-weight: 500;
     line-height: 1;
     color: #fff;
@@ -113,6 +132,16 @@ body {
 
     a {
       color: #fff;
+    }
+
+    .badge {
+      margin-left: 0.75em;
+      background-color: #fff;
+      display: inline-block;
+      @include border-radius(10px);
+      font-size: 0.75em;
+      padding: 0.25em 0.5em;
+      line-height: 1em;
     }
   }
 
@@ -164,19 +193,25 @@ body {
 
   .table {
     color: lighten(#000, 30%);
-    padding: 5px 0;
+    padding: 10px 0;
     position: relative;
+
+    .section {
+      &:nth-child(even) {
+        background-color: rgba(200, 200, 200, .15);
+      }
+    }
 
     .row {
       margin: 0;
       position: relative;
-      height: 22px;
+      height: 24px;
       @include clearfix();
       cursor: pointer;
 
       .column {
         float: left;
-        padding: .3em .6em .2em;
+        padding: .4em .6em .4em;
         border-left: 1px solid $c-lines;
         overflow: hidden;
         white-space: nowrap;
@@ -185,6 +220,10 @@ body {
 
       .column-name {
         width: 25%;
+      }
+
+      .column-aggregation {
+        width: 62.5%;
       }
 
       .column-message {
@@ -261,6 +300,22 @@ body {
       display: none;
     }
 
+    .aggregation-details {
+      position: relative;
+      @include box-shadow(inset 0 0 5px rgba(0, 0, 0, .25));
+      display: none;
+      background-color: rgba(200, 200, 200, .1);
+
+      .table {
+        padding-top: 15px;
+        padding-bottom: 15px;
+
+        .timeline-scale {
+          top: 10px;
+        }
+      }
+    }
+
     .timeline-scale {
       position: absolute;
       top: 5px;
@@ -320,6 +375,20 @@ body {
     }
   }
 
+  .aggregator {
+    display: none;
+    padding: 20px;
+    max-height: 500px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    h2 {
+      font-size: 1.4em;
+      margin: 0;
+      color: $c-headline;
+    }
+  }
+
   dl {
     @include clearfix();
     margin-top: 0;
@@ -354,17 +423,20 @@ body {
     }
   }
 
-  .severity-info,
-  .severity-notice {
-    @extend .color-1;
-  }
-
   .severity-debug {
     @extend .color-5;
   }
 
-  .severity-warning {
+  .severity-info {
+    @extend .color-2;
+  }
+
+  .severity-notice {
     @extend .color-3;
+  }
+
+  .severity-warning {
+    @extend .color-1;
   }
 
   .severity-error,

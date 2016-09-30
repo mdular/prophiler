@@ -53,7 +53,13 @@ interface BenchmarkInterface
     public function getMetadata();
 
     /**
-     * @return double Total elapsed microseconds
+     * @param string $key Metadata key to receive
+     * @return mixed Custom metadata value
+     */
+    public function getMetadataValue($key = null);
+
+    /**
+     * @return double Total elapsed milliseconds
      */
     public function getDuration();
 
@@ -68,7 +74,7 @@ interface BenchmarkInterface
     public function getEndTime();
 
     /**
-     * @return double Total elapsed microseconds
+     * @return double Total memory usage
      */
     public function getMemoryUsage();
 
